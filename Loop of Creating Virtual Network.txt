@@ -1,0 +1,28 @@
+# Set variables
+$resourceGroupName = "katiaRG"
+$location = "eastUS" 
+
+
+# Loop to create virtual networks
+for ($i = 1; $i -le 3; $i++) {
+    # Define virtual network names
+    $virtualNetworkName = "katiaVNet$i"
+
+    # Create virtual network
+    $vnet = New-AzVirtualNetwork `
+        -ResourceGroupName $resourceGroupName `
+        -Name $virtualNetworkName `
+        -AddressPrefix "10.$i.0.0/16" `
+        -Location $location
+
+    # Add subnet to virtual network
+    $subnet = Add-AzVirtualNetworkSubnetConfig `
+        -Name "default" `
+        -AddressPrefix "10.$i.0.0/24" `
+        -VirtualNetwork $vnet
+
+    $vnet | Set-AzVirtualNetwork
+    Write-Output "Virtual network $virtualNetworkName created."
+}
+
+Write-Output "All virtual networks created successfully in $resourceGroupName resource group."
