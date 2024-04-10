@@ -25,4 +25,3 @@ for ($i = 1; $i -le 3; $i++) {
     Write-Output "Virtual network $virtualNetworkName created."
 }
 
-Write-Output "All virtual networks created successfully in $resourceGroupName resource group."
